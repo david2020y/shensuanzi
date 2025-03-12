@@ -12,7 +12,7 @@ const ApiService = {
         try {
             console.log("开始调用API函数");
             // 调用Vercel函数
-            const response = await fetch('/.netlify/functions/analyze', {
+            const response = await fetch('/api/analyze', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ const ApiService = {
             // 返回模拟数据作为后备方案
             return this.generateMockAnalysis(baziData, userData);
         }
-    }
+    },
     
     /**
      * 解析API返回的文本到各个部分
@@ -94,10 +94,86 @@ const ApiService = {
         return text.substring(sectionIndex, endIndex).trim();
     },
     
-    // 保留原有的模拟分析函数作为后备方案...
+    /**
+     * 生成模拟的分析结果
+     * 实际项目中，这部分应该通过DeepSeek API返回
+     */
     generateMockAnalysis(baziData, userData) {
-        // 原有的模拟数据生成代码保持不变
-    }
+        const { yearPillar, monthPillar, dayPillar, hourPillar, wuXingCount } = baziData;
+        const { name, gender } = userData;
+        
+        // 确定用户的主要五行特征
+        const dominantElement = this.getDominantElement(wuXingCount);
+        const weakElement = this.getWeakElement(wuXingCount);
+        
+        // 生成分析结果
+        return {
+            generalAnalysis: this.generateGeneralAnalysis(dominantElement, userData),
+            personality: this.generatePersonalityAnalysis(dominantElement, weakElement, gender),
+            career: this.generateCareerAnalysis(dominantElement, yearPillar, dayPillar),
+            love: this.generateLoveAnalysis(dominantElement, gender, dayPillar),
+            health: this.generateHealthAnalysis(weakElement, wuXingCount),
+            wealth: this.generateWealthAnalysis(dominantElement, yearPillar, monthPillar)
+        };
+    },
     
-    // 其他原有的方法保持不变...
+    /**
+     * 获取最强的五行
+     */
+    getDominantElement(wuXingCount) {
+        let max = 0;
+        let dominant = "木";
+        
+        for (const element in wuXingCount) {
+            if (wuXingCount[element] > max) {
+                max = wuXingCount[element];
+                dominant = element;
+            }
+        }
+        
+        return dominant;
+    },
+    
+    /**
+     * 获取最弱的五行
+     */
+    getWeakElement(wuXingCount) {
+        let min = Infinity;
+        let weak = "木";
+        
+        for (const element in wuXingCount) {
+            if (wuXingCount[element] < min) {
+                min = wuXingCount[element];
+                weak = element;
+            }
+        }
+        
+        return weak;
+    },
+    
+    // 下面是各种分析函数
+    // 你可以保留原有的这些函数
+    generateGeneralAnalysis(dominantElement, userData) {
+        // 原有代码
+    },
+    
+    generatePersonalityAnalysis(dominantElement, weakElement, gender) {
+        // 原有代码
+    },
+    
+    generateCareerAnalysis(dominantElement, yearPillar, dayPillar) {
+        // 原有代码
+    },
+    
+    generateLoveAnalysis(dominantElement, gender, dayPillar) {
+        // 原有代码
+    },
+    
+    generateHealthAnalysis(weakElement, wuXingCount) {
+        // 原有代码
+    },
+    
+    generateWealthAnalysis(dominantElement, yearPillar, monthPillar) {
+        // 原有代码
+    }
 };
