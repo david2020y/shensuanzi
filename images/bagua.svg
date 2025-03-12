@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>八卦图</title>
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle stroke="#1E5C5C" stroke-width="4" fill="#FFFFFF" cx="100" cy="100" r="98"></circle>
+        <path d="M100,0 C155.228,0 200,44.7715 200,100 C200,155.228 155.228,200 100,200 C44.7715,200 0,155.228 0,100 C0,44.7715 44.7715,0 100,0 Z M100,100 C72.3858,100 50,77.6142 50,50 C50,22.3858 72.3858,0 100,0 C127.614,0 150,22.3858 150,50 C150,77.6142 127.614,100 100,100 Z" fill="#000000"></path>
+        <circle fill="#FFFFFF" cx="100" cy="50" r="20"></circle>
+        <circle fill="#000000" cx="100" cy="150" r="20"></circle>
+        <circle fill="#FFFFFF" cx="100" cy="50" r="5"></circle>
+        <circle fill="#000000" cx="100" cy="150" r="5"></circle>
+    </g>
+</svg>

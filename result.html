@@ -1,0 +1,397 @@
+以下是 `result.html` 的完整代码：
+
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测算结果 - 神算子</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="result-page">
+    <div class="container">
+        <header>
+            <div class="nav-top">
+                <a href="form.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <div class="logo-small">
+                    <h1>神算子</h1>
+                </div>
+                <a href="#" class="share-btn" id="shareResult">
+                    <i class="fas fa-share-alt"></i>
+                </a>
+            </div>
+        </header>
+        
+        <main>
+            <div class="result-container">
+                <div class="user-info-summary">
+                    <div class="user-info-content">
+                        <h3 id="userName">张三</h3>
+                        <p id="userGender">男</p>
+                        <p id="userBirthInfo">1990年8月15日 午时</p>
+                        <p id="userBirthPlace">北京市海淀区</p>
+                    </div>
+                    <div class="result-date">
+                        <p id="analysisDate">2025年3月12日</p>
+                    </div>
+                </div>
+                
+                <div class="bazi-basic-info">
+                    <h2 class="section-title">
+                        <i class="fas fa-sun"></i> 八字基础信息
+                    </h2>
+                    
+                    <div class="bazi-cards">
+                        <div class="bazi-card year">
+                            <div class="card-title">年柱</div>
+                            <div class="card-content">
+                                <div class="tg" id="yearTG">庚</div>
+                                <div class="dz" id="yearDZ">午</div>
+                            </div>
+                            <div class="element" id="yearElement">火</div>
+                        </div>
+                        
+                        <div class="bazi-card month">
+                            <div class="card-title">月柱</div>
+                            <div class="card-content">
+                                <div class="tg" id="monthTG">丁</div>
+                                <div class="dz" id="monthDZ">未</div>
+                            </div>
+                            <div class="element" id="monthElement">土</div>
+                        </div>
+                        
+                        <div class="bazi-card day">
+                            <div class="card-title">日柱</div>
+                            <div class="card-content">
+                                <div class="tg" id="dayTG">辛</div>
+                                <div class="dz" id="dayDZ">丑</div>
+                            </div>
+                            <div class="element" id="dayElement">土</div>
+                        </div>
+                        
+                        <div class="bazi-card hour">
+                            <div class="card-title">时柱</div>
+                            <div class="card-content">
+                                <div class="tg" id="hourTG">甲</div>
+                                <div class="dz" id="hourDZ">申</div>
+                            </div>
+                            <div class="element" id="hourElement">金</div>
+                        </div>
+                    </div>
+                    
+                    <div class="elements-chart">
+                        <h3>五行强弱分析</h3>
+                        <div class="chart-container">
+                            <div class="element-bar">
+                                <div class="element-label">
+                                    <span class="element-icon metal">金</span>
+                                </div>
+                                <div class="bar-container">
+                                    <div class="bar-fill metal" id="metalBar" style="width: 60%;"></div>
+                                </div>
+                                <div class="element-value" id="metalValue">3</div>
+                            </div>
+                            
+                            <div class="element-bar">
+                                <div class="element-label">
+                                    <span class="element-icon wood">木</span>
+                                </div>
+                                <div class="bar-container">
+                                    <div class="bar-fill wood" id="woodBar" style="width: 20%;"></div>
+                                </div>
+                                <div class="element-value" id="woodValue">1</div>
+                            </div>
+                            
+                            <div class="element-bar">
+                                <div class="element-label">
+                                    <span class="element-icon water">水</span>
+                                </div>
+                                <div class="bar-container">
+                                    <div class="bar-fill water" id="waterBar" style="width: 40%;"></div>
+                                </div>
+                                <div class="element-value" id="waterValue">2</div>
+                            </div>
+                            
+                            <div class="element-bar">
+                                <div class="element-label">
+                                    <span class="element-icon fire">火</span>
+                                </div>
+                                <div class="bar-container">
+                                    <div class="bar-fill fire" id="fireBar" style="width: 20%;"></div>
+                                </div>
+                                <div class="element-value" id="fireValue">1</div>
+                            </div>
+                            
+                            <div class="element-bar">
+                                <div class="element-label">
+                                    <span class="element-icon earth">土</span>
+                                </div>
+                                <div class="bar-container">
+                                    <div class="bar-fill earth" id="earthBar" style="width: 80%;"></div>
+                                </div>
+                                <div class="element-value" id="earthValue">4</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="ai-analysis">
+                    <h2 class="section-title">
+                        <i class="fas fa-brain"></i> AI解读分析
+                    </h2>
+                    
+                    <div class="analysis-section general-analysis">
+                        <div class="section-header" id="generalAnalysisHeader">
+                            <h3>
+                                <i class="fas fa-user"></i> 总体分析
+                            </h3>
+                            <span class="toggle-icon">
+                                <i class="fas fa-chevron-down"></i>
+                            </span>
+                        </div>
+                        <div class="section-content" id="generalAnalysisContent">
+                            <p id="generalAnalysisText">加载中...</p>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-section personality-analysis">
+                        <div class="section-header" id="personalityHeader">
+                            <h3>
+                                <i class="fas fa-heart"></i> 性格特质
+                            </h3>
+                            <span class="toggle-icon">
+                                <i class="fas fa-chevron-down"></i>
+                            </span>
+                        </div>
+                        <div class="section-content" id="personalityContent">
+                            <p id="personalityText">加载中...</p>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-section career-analysis">
+                        <div class="section-header" id="careerHeader">
+                            <h3>
+                                <i class="fas fa-briefcase"></i> 事业财运
+                            </h3>
+                            <span class="toggle-icon">
+                                <i class="fas fa-chevron-down"></i>
+                            </span>
+                        </div>
+                        <div class="section-content" id="careerContent">
+                            <p id="careerText">加载中...</p>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-section love-analysis">
+                        <div class="section-header" id="loveHeader">
+                            <h3>
+                                <i class="fas fa-heart"></i> 感情姻缘
+                            </h3>
+                            <span class="toggle-icon">
+                                <i class="fas fa-chevron-down"></i>
+                            </span>
+                        </div>
+                        <div class="section-content" id="loveContent">
+                            <p id="loveText">加载中...</p>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-section health-analysis">
+                        <div class="section-header" id="healthHeader">
+                            <h3>
+                                <i class="fas fa-medkit"></i> 健康状况
+                            </h3>
+                            <span class="toggle-icon">
+                                <i class="fas fa-chevron-down"></i>
+                            </span>
+                        </div>
+                        <div class="section-content" id="healthContent">
+                            <p id="healthText">加载中...</p>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-section wealth-analysis">
+                        <div class="section-header" id="wealthHeader">
+                            <h3>
+                                <i class="fas fa-coins"></i> 财富运势
+                            </h3>
+                            <span class="toggle-icon">
+                                <i class="fas fa-chevron-down"></i>
+                            </span>
+                        </div>
+                        <div class="section-content" id="wealthContent">
+                            <p id="wealthText">加载中...</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="premium-services">
+                    <h2 class="section-title">
+                        <i class="fas fa-gem"></i> 深度服务
+                    </h2>
+                    
+                    <div class="service-cards">
+                        <div class="service-card" id="basicService">
+                            <div class="service-header">
+                                <h3>专项咨询</h3>
+                                <div class="price">¥388</div>
+                            </div>
+                            <div class="service-features">
+                                <ul>
+                                    <li><i class="fas fa-check"></i> 40分钟一对一咨询</li>
+                                    <li><i class="fas fa-check"></i> 针对单一领域深度解析</li>
+                                    <li><i class="fas fa-check"></i> 专业命理师在线解答</li>
+                                    <li><i class="fas fa-check"></i> 提供改善建议</li>
+                                </ul>
+                            </div>
+                            <button class="btn service-btn">选择此服务</button>
+                        </div>
+                        
+                        <div class="service-card premium" id="premiumService">
+                            <div class="service-header">
+                                <h3>全面测算</h3>
+                                <div class="price">¥1200</div>
+                            </div>
+                            <div class="service-features">
+                                <ul>
+                                    <li><i class="fas fa-check"></i> 2小时深度咨询</li>
+                                    <li><i class="fas fa-check"></i> 全方位命盘解析</li>
+                                    <li><i class="fas fa-check"></i> 事业、财运、健康、姻缘全面分析</li>
+                                    <li><i class="fas fa-check"></i> 个性化改运方案</li>
+                                    <li><i class="fas fa-check"></i> 赠送一次后续跟进咨询</li>
+                                </ul>
+                            </div>
+                            <button class="btn service-btn premium-btn">选择此服务</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonials">
+                    <h2 class="section-title">
+                        <i class="fas fa-comment"></i> 用户评价
+                    </h2>
+                    
+                    <div class="testimonial-slider">
+                        <div class="testimonial">
+                            <div class="testimonial-content">
+                                <p>"李大师的分析非常准确，尤其是关于我事业方向的建议，帮我避开了一次错误的职业选择。"</p>
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="avatar">张先生</div>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="testimonial">
+                            <div class="testimonial-content">
+                                <p>"通过趋健避疾分析，发现了我潜在的健康隐患，调整后身体状况明显改善。"</p>
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="avatar">王女士</div>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="testimonial">
+                            <div class="testimonial-content">
+                                <p>"原本对这类服务持怀疑态度，但测算结果与我的实际情况高度吻合，非常震惊！"</p>
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="avatar">林先生</div>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cta-section">
+                    <button class="btn btn-primary cta-btn" id="consultBtn">
+                        <i class="fas fa-comments"></i> 进一步咨询
+                    </button>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <div class="footer-actions">
+                <button class="footer-btn" id="homeBtn">
+                    <i class="fas fa-home"></i>
+                    <span>首页</span>
+                </button>
+                <button class="footer-btn" id="saveBtn">
+                    <i class="fas fa-save"></i>
+                    <span>保存</span>
+                </button>
+                <button class="footer-btn" id="shareBtn">
+                    <i class="fas fa-share-alt"></i>
+                    <span>分享</span>
+                </button>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <!-- 分享弹窗 -->
+    <div class="modal" id="shareModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>分享你的八字分析</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="share-options">
+                    <button class="share-option" data-platform="wechat">
+                        <i class="fab fa-weixin"></i>
+                        <span>微信</span>
+                    </button>
+                    <button class="share-option" data-platform="weibo">
+                        <i class="fab fa-weibo"></i>
+                        <span>微博</span>
+                    </button>
+                    <button class="share-option" data-platform="qq">
+                        <i class="fab fa-qq"></i>
+                        <span>QQ</span>
+                    </button>
+                    <button class="share-option" data-platform="copy">
+                        <i class="fas fa-copy"></i>
+                        <span>复制链接</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/bazi.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
+```
+
+您可以将这段代码完整复制到 `result.html` 文件中并保存。

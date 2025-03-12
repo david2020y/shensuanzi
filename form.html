@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>八字精测 - 神算子</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="form-page">
+    <div class="container">
+        <header>
+            <div class="nav-top">
+                <a href="index.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <div class="logo-small">
+                    <h1>神算子</h1>
+                </div>
+                <div class="placeholder"></div>
+            </div>
+        </header>
+        
+        <main>
+            <div class="form-container">
+                <h2 class="form-title">八字精测</h2>
+                <p class="form-subtitle">填写您的个人信息，获取精准八字解读</p>
+                
+                <div class="progress-bar">
+                    <div class="progress-step active" data-step="1">
+                        <div class="step-number">1</div>
+                        <div class="step-text">基本信息</div>
+                    </div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step" data-step="2">
+                        <div class="step-number">2</div>
+                        <div class="step-text">出生日期</div>
+                    </div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step" data-step="3">
+                        <div class="step-number">3</div>
+                        <div class="step-text">出生详情</div>
+                    </div>
+                </div>
+                
+                <form id="baziForm">
+                    <!-- 步骤1：基本信息 -->
+                    <div class="form-step active" id="step1">
+                        <div class="form-group">
+                            <label for="name">
+                                <i class="fas fa-user"></i> 您的姓名
+                            </label>
+                            <input type="text" id="name" name="name" placeholder="请输入您的姓名" required>
+                            <div class="error-message"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-venus-mars"></i> 您的性别
+                            </label>
+                            <div class="gender-selector">
+                                <div class="gender-option">
+                                    <input type="radio" id="male" name="gender" value="male" checked>
+                                    <label for="male">
+                                        <i class="fas fa-mars"></i> 男
+                                    </label>
+                                </div>
+                                <div class="gender-option">
+                                    <input type="radio" id="female" name="gender" value="female">
+                                    <label for="female">
+                                        <i class="fas fa-venus"></i> 女
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-navigation">
+                            <button type="button" class="btn btn-next" id="nextToStep2">
+                                下一步 <i class="fas fa-angle-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 步骤2：出生日期 -->
+                    <div class="form-step" id="step2">
+                        <div class="form-group calendar-toggle">
+                            <label>
+                                <i class="fas fa-calendar-alt"></i> 日历类型
+                            </label>
+                            <div class="toggle-container">
+                                <input type="checkbox" id="calendarType" class="toggle-input">
+                                <label for="calendarType" class="toggle-label">
+                                    <span class="toggle-text solar">阳历</span>
+                                    <span class="toggle-track">
+                                        <span class="toggle-thumb"></span>
+                                    </span>
+                                    <span class="toggle-text lunar">农历</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="birthYear">
+                                <i class="fas fa-calendar-week"></i> 出生年份
+                            </label>
+                            <select id="birthYear" name="birthYear" required>
+                                <option value="">请选择</option>
+                                <!-- 年份选项会通过JavaScript动态生成 -->
+                            </select>
+                            <div class="error-message"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="birthMonth">
+                                <i class="fas fa-calendar-day"></i> 出生月份
+                            </label>
+                            <select id="birthMonth" name="birthMonth" required>
+                                <option value="">请选择</option>
+                                <!-- 月份选项会通过JavaScript动态生成 -->
+                            </select>
+                            <div class="error-message"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="birthDay">
+                                <i class="fas fa-calendar-check"></i> 出生日期
+                            </label>
+                            <select id="birthDay" name="birthDay" required>
+                                <option value="">请选择</option>
+                                <!-- 日期选项会通过JavaScript动态生成 -->
+                            </select>
+                            <div class="error-message"></div>
+                        </div>
+                        
+                        <div class="form-navigation">
+                            <button type="button" class="btn btn-back" id="backToStep1">
+                                <i class="fas fa-angle-left"></i> 上一步
+                            </button>
+                            <button type="button" class="btn btn-next" id="nextToStep3">
+                                下一步 <i class="fas fa-angle-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 步骤3：出生详情 -->
+                    <div class="form-step" id="step3">
+                        <div class="form-group">
+                            <label for="birthHour">
+                                <i class="fas fa-clock"></i> 出生时辰
+                            </label>
+                            <select id="birthHour" name="birthHour" required>
+                                <option value="">请选择</option>
+                                <option value="0">子时 (23:00-01:00)</option>
+                                <option value="1">丑时 (01:00-03:00)</option>
+                                <option value="2">寅时 (03:00-05:00)</option>
+                                <option value="3">卯时 (05:00-07:00)</option>
+                                <option value="4">辰时 (07:00-09:00)</option>
+                                <option value="5">巳时 (09:00-11:00)</option>
+                                <option value="6">午时 (11:00-13:00)</option>
+                                <option value="7">未时 (13:00-15:00)</option>
+                                <option value="8">申时 (15:00-17:00)</option>
+                                <option value="9">酉时 (17:00-19:00)</option>
+                                <option value="10">戌时 (19:00-21:00)</option>
+                                <option value="11">亥时 (21:00-23:00)</option>
+                                <option value="12">不清楚时辰</option>
+                            </select>
+                            <div class="error-message"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="birthPlace">
+                                <i class="fas fa-map-marker-alt"></i> 出生地点
+                            </label>
+                            <input type="text" id="birthPlace" name="birthPlace" placeholder="例：北京市海淀区" required>
+                            <div class="error-message"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">
+                                <i class="fas fa-phone"></i> 联系电话
+                            </label>
+                            <div class="phone-input-container">
+                                <select id="countryCode" name="countryCode">
+                                    <option value="+86">+86</option>
+                                    <option value="+852">+852</option>
+                                    <option value="+853">+853</option>
+                                    <option value="+886">+886</option>
+                                    <option value="+65">+65</option>
+                                    <option value="+60">+60</option>
+                                    <option value="+1">+1</option>
+                                </select>
+                                <input type="tel" id="phone" name="phone" placeholder="请输入电话号码" required>
+                            </div>
+                            <div class="error-message"></div>
+                        </div>
+                        
+                        <div class="form-group privacy-policy">
+                            <input type="checkbox" id="privacyAgreement" name="privacyAgreement" required>
+                            <label for="privacyAgreement">
+                                我已阅读并同意<a href="#" id="privacyLink">隐私政策</a>
+                            </label>
+                            <div class="error-message"></div>
+                        </div>
+                        
+                        <div class="form-navigation">
+                            <button type="button" class="btn btn-back" id="backToStep2">
+                                <i class="fas fa-angle-left"></i> 上一步
+                            </button>
+                            <button type="submit" class="btn btn-primary submit-btn" id="submitForm">
+                                开始分析 <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+    
+    <!-- 加载状态覆盖层 -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-animation">
+                <div class="bagua">
+                    <div class="bagua-inner"></div>
+                </div>
+            </div>
+            <p>正在解析八字，请稍候...</p>
+        </div>
+    </div>
+    
+    <!-- 隐私政策弹窗 -->
+    <div class="modal" id="privacyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>隐私政策</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>神算子尊重并保护用户隐私。本隐私政策说明我们如何收集、使用和保护您提供的个人信息。</p>
+                <h4>信息收集</h4>
+                <p>我们收集您提供的姓名、性别、出生信息和联系方式，仅用于提供八字测算服务。</p>
+                <h4>信息使用</h4>
+                <p>收集的信息仅用于：</p>
+                <ul>
+                    <li>提供八字测算服务</li>
+                    <li>改进我们的服务体验</li>
+                    <li>经您同意的其他用途</li>
+                </ul>
+                <h4>信息保护</h4>
+                <p>我们使用加密技术保护您的个人信息，防止未经授权的访问或泄露。</p>
+            </div>
+            <div class="modal-footer">
+                <button id="acceptPrivacy" class="btn btn-primary">我已了解</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/bazi.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
