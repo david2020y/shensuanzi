@@ -1,0 +1,8 @@
+{
+    "name": "shensuanzi",
+    "version": "1.0.0",
+    "description": "神算子八字算命应用",
+    "dependencies": {
+      "axios": "^1.6.2"
+    }
+  }
