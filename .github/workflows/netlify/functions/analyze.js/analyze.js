@@ -7,7 +7,10 @@ exports.handler = async function(event, context) {
   }
 
   try {
+    console.log("函数已调用，收到请求");
     const data = JSON.parse(event.body);
+    console.log("请求数据:", JSON.stringify(data).substring(0, 200) + "...");
+    console.log("API密钥是否存在:", !!process.env.DEEPSEEK_API_KEY);
     
     // 获取八字信息
     const baziData = data.baziData;
@@ -32,6 +35,7 @@ exports.handler = async function(event, context) {
     金：${wuxingCount.金} 木：${wuxingCount.木} 水：${wuxingCount.水} 火：${wuxingCount.火} 土：${wuxingCount.土}
     `;
     
+    console.log("准备调用DeepSeek API");
     // 调用DeepSeek API
     const response = await axios.post(
       'https://api.deepseek.com/v1/chat/completions',
@@ -76,20 +80,34 @@ exports.handler = async function(event, context) {
         }
       }
     );
+    
+    console.log("DeepSeek API响应状态:", response.status);
+    console.log("DeepSeek API响应头:", JSON.stringify(response.headers));
+    console.log("DeepSeek API响应数据:", JSON.stringify(response.data).substring(0, 200) + "...");
 
     return {
       statusCode: 200,
       body: JSON.stringify({
-        analysis: response.data.choices[0].message.content
+        analysis: response.data.choices[0].message.content,
+        source: "deepseek-api" // 添加源标记
       })
     };
   } catch (error) {
     console.log('Error:', error);
+    console.log('Error details:', error.message);
+    // 如果错误是来自API响应，尝试记录更多信息
+    if (error.response) {
+      console.log('Error status:', error.response.status);
+      console.log('Error headers:', JSON.stringify(error.response.headers));
+      console.log('Error data:', JSON.stringify(error.response.data));
+    }
+    
     return {
       statusCode: 500,
       body: JSON.stringify({ 
         error: "Error processing your request",
-        details: error.message
+        details: error.message,
+        source: "error-fallback"
       })
     };
   }
