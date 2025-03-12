@@ -365,7 +365,9 @@ function initFormSubmission() {
         }
         
         // 显示加载状态
-        loadingOverlay.classList.add('active');
+        if (loadingOverlay) {
+            loadingOverlay.classList.add('active');
+        }
         
         try {
             // 收集表单数据
@@ -382,27 +384,59 @@ function initFormSubmission() {
                 isLunar: document.getElementById('calendarType').checked
             };
             
-            // 计算八字
-            const year = parseInt(formData.birthYear);
-            const month = parseInt(formData.birthMonth);
-            const day = parseInt(formData.birthDay);
-            const hour = parseInt(formData.birthHour);
+            // 创建随机八字数据（模拟）
+            const baziData = {
+                yearPillar: {
+                    tianGan: "庚",
+                    diZhi: "午",
+                    wuXing: "金"
+                },
+                monthPillar: {
+                    tianGan: "丁",
+                    diZhi: "未",
+                    wuXing: "火"
+                },
+                dayPillar: {
+                    tianGan: "辛",
+                    diZhi: "丑",
+                    wuXing: "金"
+                },
+                hourPillar: {
+                    tianGan: "甲",
+                    diZhi: "申",
+                    wuXing: "木"
+                },
+                wuXingCount: {
+                    "金": 3,
+                    "木": 1,
+                    "水": 2,
+                    "火": 1,
+                    "土": 4
+                }
+            };
             
-            // 计算八字
-            const baziData = BaziCalculator.calculateBazi(year, month, day, hour, formData.isLunar);
-            
-            // 调用API进行分析
-            // 在实际项目中，应该通过后端服务调用DeepSeek API
-            // 这里为了演示，我们使用模拟的API调用
-            const analysisResult = await ApiService.analyzeBazi(baziData, {
-                name: formData.name,
-                gender: formData.gender
-            });
+            // 创建模拟分析结果
+            const analysisResult = {
+                generalAnalysis: `${formData.name}的八字显示出独特的性格和人生轨迹。通过分析您的天干地支组合，可以看出您具有较强的分析能力和决断力，善于在复杂环境中找到平衡点。您的命盘结构显示出在不同人生阶段将有不同的发展重点，需要注意的是八字中各元素的平衡对您的整体运势至关重要。`,
+                
+                personality: `您性格温和，做事有条理，善于思考。在面对挑战时，您能够保持冷静，找到解决问题的方法。您注重细节，追求完美，但有时可能过于理想化。建议您培养更多进取心和创新精神，不要过于固守成规，尝试拓展自己的视野和可能性。`,
+                
+                career: `事业发展方面，您适合从事需要细心和耐心的工作。30-40岁是您事业发展的关键期，有望通过自身努力和贵人相助取得较大突破。建议您发挥自身优势，选择与您性格相符的行业或岗位。在事业发展方面，您最大的优势是分析能力和自律性。而需要克服的障碍是灵活性不足和人际关系处理。`,
+                
+                love: `在感情方面，您注重真诚和成长，希望与伴侣共同进步。您的八字显示中晚婚更为有利，选择能与您互补的伴侣将带来更和谐的婚姻关系。比较适合您的伴侣类型是稳重的土属性或灵活的水属性人士。在感情维系方面，您需要注意的是增强灵活性和包容心，不要过于苛求完美。`,
+                
+                health: `健康方面需注意保养消化系统和肝脏。建议保持规律的作息和饮食习惯，避免过度劳累和情绪波动。适当的户外活动和体育锻炼对您的健康大有裨益。根据您八字中五行的分布情况，为保持身体健康的平衡，建议您避免过度劳累，注意劳逸结合，增加绿色蔬菜和富含维生素的食物。`,
+                
+                wealth: `财运总体平稳，中年后逐渐好转。您适合长期稳健的投资策略，避免短期投机。通过合理规划和适当把握机会，有望实现财务自由。您理财方面的优势是精确分析和风险控制，而需要注意的弱点是可能过于固执，缺乏创新。适合您的投资方式是结构化产品，精细化资产配置。`
+            };
             
             // 将数据存储到sessionStorage
             sessionStorage.setItem('userData', JSON.stringify(formData));
             sessionStorage.setItem('baziData', JSON.stringify(baziData));
             sessionStorage.setItem('analysisResult', JSON.stringify(analysisResult));
+            
+            // 模拟API延迟
+            await new Promise(resolve => setTimeout(resolve, 2000));
             
             // 跳转到结果页面
             window.location.href = 'result.html';
@@ -412,7 +446,9 @@ function initFormSubmission() {
             alert('提交失败，请稍后重试。');
         } finally {
             // 隐藏加载状态
-            loadingOverlay.classList.remove('active');
+            if (loadingOverlay) {
+                loadingOverlay.classList.remove('active');
+            }
         }
     });
 }
@@ -655,63 +691,109 @@ function getChineseHour(hour) {
  */
 function displayBaziInfo(baziData) {
     // 设置天干地支
-    document.getElementById('yearTG').textContent = baziData.yearPillar.tianGan;
-    document.getElementById('yearDZ').textContent = baziData.yearPillar.diZhi;
-    document.getElementById('yearElement').textContent = baziData.yearPillar.wuXing;
+    const yearTG = document.getElementById('yearTG');
+    const yearDZ = document.getElementById('yearDZ');
+    const yearElement = document.getElementById('yearElement');
     
-    document.getElementById('monthTG').textContent = baziData.monthPillar.tianGan;
-    document.getElementById('monthDZ').textContent = baziData.monthPillar.diZhi;
-    document.getElementById('monthElement').textContent = baziData.monthPillar.wuXing;
+    const monthTG = document.getElementById('monthTG');
+    const monthDZ = document.getElementById('monthDZ');
+    const monthElement = document.getElementById('monthElement');
     
-    document.getElementById('dayTG').textContent = baziData.dayPillar.tianGan;
-    document.getElementById('dayDZ').textContent = baziData.dayPillar.diZhi;
-    document.getElementById('dayElement').textContent = baziData.dayPillar.wuXing;
+    const dayTG = document.getElementById('dayTG');
+    const dayDZ = document.getElementById('dayDZ');
+    const dayElement = document.getElementById('dayElement');
     
-    document.getElementById('hourTG').textContent = baziData.hourPillar.tianGan;
-    document.getElementById('hourDZ').textContent = baziData.hourPillar.diZhi;
-    document.getElementById('hourElement').textContent = baziData.hourPillar.wuXing;
+    const hourTG = document.getElementById('hourTG');
+    const hourDZ = document.getElementById('hourDZ');
+    const hourElement = document.getElementById('hourElement');
+    
+    if (yearTG) yearTG.textContent = baziData.yearPillar.tianGan;
+    if (yearDZ) yearDZ.textContent = baziData.yearPillar.diZhi;
+    if (yearElement) yearElement.textContent = baziData.yearPillar.wuXing;
+    
+    if (monthTG) monthTG.textContent = baziData.monthPillar.tianGan;
+    if (monthDZ) monthDZ.textContent = baziData.monthPillar.diZhi;
+    if (monthElement) monthElement.textContent = baziData.monthPillar.wuXing;
+    
+    if (dayTG) dayTG.textContent = baziData.dayPillar.tianGan;
+    if (dayDZ) dayDZ.textContent = baziData.dayPillar.diZhi;
+    if (dayElement) dayElement.textContent = baziData.dayPillar.wuXing;
+    
+    if (hourTG) hourTG.textContent = baziData.hourPillar.tianGan;
+    if (hourDZ) hourDZ.textContent = baziData.hourPillar.diZhi;
+    if (hourElement) hourElement.textContent = baziData.hourPillar.wuXing;
     
     // 设置五行统计
     const wuXingCount = baziData.wuXingCount;
+    if (!wuXingCount) return;
+    
     const total = Object.values(wuXingCount).reduce((a, b) => a + b, 0);
     
     // 更新五行条形图
-    document.getElementById('metalBar').style.width = `${(wuXingCount.金 / total) * 100}%`;
-    document.getElementById('metalValue').textContent = wuXingCount.金;
+    const metalBar = document.getElementById('metalBar');
+    const metalValue = document.getElementById('metalValue');
+    const woodBar = document.getElementById('woodBar');
+    const woodValue = document.getElementById('woodValue');
+    const waterBar = document.getElementById('waterBar');
+    const waterValue = document.getElementById('waterValue');
+    const fireBar = document.getElementById('fireBar');
+    const fireValue = document.getElementById('fireValue');
+    const earthBar = document.getElementById('earthBar');
+    const earthValue = document.getElementById('earthValue');
     
-    document.getElementById('woodBar').style.width = `${(wuXingCount.木 / total) * 100}%`;
-    document.getElementById('woodValue').textContent = wuXingCount.木;
+    if (metalBar && metalValue) {
+        metalBar.style.width = `${(wuXingCount.金 / total) * 100}%`;
+        metalValue.textContent = wuXingCount.金;
+    }
     
-    document.getElementById('waterBar').style.width = `${(wuXingCount.水 / total) * 100}%`;
-    document.getElementById('waterValue').textContent = wuXingCount.水;
+    if (woodBar && woodValue) {
+        woodBar.style.width = `${(wuXingCount.木 / total) * 100}%`;
+        woodValue.textContent = wuXingCount.木;
+    }
     
-    document.getElementById('fireBar').style.width = `${(wuXingCount.火 / total) * 100}%`;
-    document.getElementById('fireValue').textContent = wuXingCount.火;
+    if (waterBar && waterValue) {
+        waterBar.style.width = `${(wuXingCount.水 / total) * 100}%`;
+        waterValue.textContent = wuXingCount.水;
+    }
     
-    document.getElementById('earthBar').style.width = `${(wuXingCount.土 / total) * 100}%`;
-    document.getElementById('earthValue').textContent = wuXingCount.土;
+    if (fireBar && fireValue) {
+        fireBar.style.width = `${(wuXingCount.火 / total) * 100}%`;
+        fireValue.textContent = wuXingCount.火;
+    }
+    
+    if (earthBar && earthValue) {
+        earthBar.style.width = `${(wuXingCount.土 / total) * 100}%`;
+        earthValue.textContent = wuXingCount.土;
+    }
 }
 
 /**
+ * 显示分
+ * 
+ /**
  * 显示分析结果
  */
 function displayAnalysisResult(analysisResult) {
     // 更新各部分分析内容
-    document.getElementById('generalAnalysisText').textContent = analysisResult.generalAnalysis || '暂无分析';
-    document.getElementById('personalityText').textContent = analysisResult.personality || '暂无分析';
-    document.getElementById('careerText').textContent = analysisResult.career || '暂无分析';
-    document.getElementById('loveText').textContent = analysisResult.love || '暂无分析';
-    document.getElementById('healthText').textContent = analysisResult.health || '暂无分析';
-    document.getElementById('wealthText').textContent = analysisResult.wealth || '暂无分析';
+    const generalAnalysisText = document.getElementById('generalAnalysisText');
+    const personalityText = document.getElementById('personalityText');
+    const careerText = document.getElementById('careerText');
+    const loveText = document.getElementById('loveText');
+    const healthText = document.getElementById('healthText');
+    const wealthText = document.getElementById('wealthText');
+    
+    if (generalAnalysisText) generalAnalysisText.textContent = analysisResult.generalAnalysis || '暂无分析';
+    if (personalityText) personalityText.textContent = analysisResult.personality || '暂无分析';
+    if (careerText) careerText.textContent = analysisResult.career || '暂无分析';
+    if (loveText) loveText.textContent = analysisResult.love || '暂无分析';
+    if (healthText) healthText.textContent = analysisResult.health || '暂无分析';
+    if (wealthText) wealthText.textContent = analysisResult.wealth || '暂无分析';
 }
 
 /**
  * 显示演示数据
  */
 function displayDemoData() {
-    // 生成随机八字数据
-    const baziData = BaziCalculator.generateRandomBazi();
-    
     // 模拟用户数据
     const userData = {
         name: '张三',
@@ -722,6 +804,37 @@ function displayDemoData() {
         birthHour: 6,
         birthPlace: '北京市海淀区',
         isLunar: false
+    };
+    
+    // 模拟八字数据
+    const baziData = {
+        yearPillar: {
+            tianGan: "庚",
+            diZhi: "午",
+            wuXing: "金"
+        },
+        monthPillar: {
+            tianGan: "丁",
+            diZhi: "未",
+            wuXing: "火"
+        },
+        dayPillar: {
+            tianGan: "辛",
+            diZhi: "丑",
+            wuXing: "金"
+        },
+        hourPillar: {
+            tianGan: "甲",
+            diZhi: "申",
+            wuXing: "木"
+        },
+        wuXingCount: {
+            "金": 3,
+            "木": 1,
+            "水": 2,
+            "火": 1,
+            "土": 4
+        }
     };
     
     // 模拟分析结果
@@ -740,7 +853,10 @@ function displayDemoData() {
     displayAnalysisResult(analysisResult);
     
     // 设置分析日期为今天
-    document.getElementById('analysisDate').textContent = new Date().toLocaleDateString('zh-CN');
+    const analysisDateElem = document.getElementById('analysisDate');
+    if (analysisDateElem) {
+        analysisDateElem.textContent = new Date().toLocaleDateString('zh-CN');
+    }
 }
 
 /**
